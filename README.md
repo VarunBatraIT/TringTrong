@@ -1,6 +1,10 @@
 # TringTrong
 TringTrong is small node based SOA for getting and setting data. It saves geo data in mongodb async and sync way
 
+##Clustered
+
+It is right now equal to number of CPUs, we will have configuration in future :)
+
 ##Set Data
 http://localhost:3000/set/someid?async=false or http://localhost:3000/set/someid?async=true
 
@@ -15,4 +19,5 @@ http://localhost:3000/get/someid
 
 
 ###ToDo
-Some standard structuring will be required to return same type of structure everytime
+- Some standard structuring will be required to return same type of structure everytime
+- CPUs number configuration
