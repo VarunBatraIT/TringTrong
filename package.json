@@ -1,0 +1,22 @@
+{
+  "name": "tringtrong",
+  "version": "0.1.0",
+  "description": "Tracking minimul express service (SOA)",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.12.0",
+    "geoip-lite": "^1.1.5",
+    "mongoose": "^3.8.24"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Tracking",
+    "SOA",
+    "Tracking"
+  ],
+  "author": "Varun Batra <CodeVarun@Gmail.com>",
+  "license": "MIT"
+}
