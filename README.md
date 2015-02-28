@@ -19,5 +19,4 @@ http://localhost:3000/get/someid
 
 
 ###ToDo
-- Some standard structuring will be required to return same type of structure everytime
 - CPUs number configuration

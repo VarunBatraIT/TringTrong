@@ -7,7 +7,8 @@ if (cluster.isMaster) {
         cluster.fork();
     }
     cluster.on('exit', function (worker, code, signal) {
-        console.log('worker ' + worker.process.pid + ' died');
+        console.log('worker ' + worker.process.pid + ' died, restarting');
+        cluster.fork();
     });
 } else {
     var express = require('express')
@@ -43,10 +44,17 @@ if (cluster.isMaster) {
         storageInit()
 
         var Ti = global.Tt
-
+        var allEntries = new Array();
         Ti.find({id: id}, function (err, entries) {
             if (err) return res.send(err);
-            global.res.send(entries)
+            for (var x = 0; x < entries.length; x++) {
+                entry = {
+                    id: entries[x].id,
+                    data: entries[x].data
+                }
+                allEntries.push(entry);
+            }
+            global.res.send(allEntries)
         }, function () {
             global.res.send({})
         })
@@ -56,8 +64,7 @@ if (cluster.isMaster) {
         var req = global.req;
         var res = global.res;
         var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-//        var ip = '122.161.114.15'
-
+        var ip = '122.161.114.15'
         if (!async) {
             var geoip = require('geoip-lite');
             var geo = geoip.lookup(ip);
@@ -67,9 +74,7 @@ if (cluster.isMaster) {
                     'geo': geo
                 })
             }, 0);
-//            console.log('over top');
-//            console.log(geo)
-            return (geo);
+            return ({id: id, data: geo});
         } else {
             setTimeout(function () {
                 console.log('Delayed Lookup')
@@ -100,10 +105,8 @@ if (cluster.isMaster) {
     })
 
     var server = app.listen(3000, function () {
-
         var host = server.address().address
         var port = server.address().port
-
         console.log('App listening at http://%s:%s', host, port)
 
     })
