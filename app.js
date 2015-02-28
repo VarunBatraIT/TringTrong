@@ -24,7 +24,7 @@ if (cluster.isMaster) {
             global.mongoose = mongoose = require('mongoose');
             global.mongoose.connect('mongodb://localhost/' + database);
             global.Tt = global.mongoose.model('Tt', {
-                id: String,
+                id: {type: String, index: true},
                 data: Object
             });
         }
