@@ -25,7 +25,8 @@ if (cluster.isMaster) {
             global.mongoose.connect('mongodb://localhost/' + database);
             global.Tt = global.mongoose.model('Tt', {
                 id: {type: String, index: true},
-                data: Object
+                data: Object,
+                date: { type: Date, default: Date.now }
             });
         }
     }
@@ -35,7 +36,7 @@ if (cluster.isMaster) {
 
         var Ti = global.Tt
 
-        var geo = new Ti({ id: id, data: data });
+        var geo = new Ti({ id: id, data: data, date: global.timeNow });
         geo.save(function (err) {
             if (err) {
                 console.log(err);
@@ -55,7 +56,8 @@ if (cluster.isMaster) {
             for (var x = 0; x < entries.length; x++) {
                 entry = {
                     id: entries[x].id,
-                    data: entries[x].data
+                    data: entries[x].data,
+                    date: entries[x].date
                 }
                 allEntries.push(entry);
             }
@@ -83,7 +85,7 @@ if (cluster.isMaster) {
                     'geo': geo
                 })
             }, 0);
-            return ({id: id, data: geo});
+            return ({id: id, data: {geo: geo}, date: global.timeNow});
         } else {
             setTimeout(function () {
                 console.log('Delayed Lookup')
@@ -102,6 +104,7 @@ if (cluster.isMaster) {
     })
 
     app.get('/set/:id', function (req, res) {
+        global.timeNow = new Date().toISOString();
         global.req = req;
         global.res = res;
         var async = req.query['async'] == "false" ? false : true

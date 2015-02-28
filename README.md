@@ -19,7 +19,7 @@ http://localhost:3000/set/user-007?async=false
 
 
 ```
-{"id":"user-007","data":{"range":[2057400832,2057401087],"country":"IN","region":"07","city":"Delhi","ll":[28.6667,77.2167],"metro":0}}
+{"id":"user-007","data":{"geo":{"metro":0,"ll":[28.6667,77.2167],"city":"Delhi","region":"07","country":"IN","range":[2057400832,2057401087]}},"date":"2015-02-28T08:30:06.715Z"}
 ```
 
 
@@ -54,6 +54,6 @@ http://localhost:3000/get/user-007
 
 
 ```
-[{"id":"user-007","data":{"geo":{"metro":0,"ll":[28.6667,77.2167],"city":"Delhi","region":"07","country":"IN","range":[2057400832,2057401087]}}},{"id":"user-007","data":{"geo":{"metro":0,"ll":[28.6667,77.2167],"city":"Delhi","region":"07","country":"IN","range":[2057400832,2057401087]}}},{"id":"user-007","data":{"geo":{"metro":0,"ll":[28.6667,77.2167],"city":"Delhi","region":"07","country":"IN","range":[2057400832,2057401087]}}}]
+[{"id":"user-007","data":{"geo":{"metro":0,"ll":[28.6667,77.2167],"city":"Delhi","region":"07","country":"IN","range":[2057400832,2057401087]}},"date":"2015-02-28T08:29:34.211Z"},{"id":"user-007","data":{"geo":{"metro":0,"ll":[28.6667,77.2167],"city":"Delhi","region":"07","country":"IN","range":[2057400832,2057401087]}},"date":"2015-02-28T08:30:06.715Z"}]
 ```
 

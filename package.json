@@ -1,7 +1,7 @@
 {
   "name": "tringtrong",
-  "version": "0.1.0",
-  "description": "Tracking minimul express service (SOA)",
+  "version": "1.0.0",
+  "description": "Tracking minimal express service (SOA)",
   "main": "app.js",
   "dependencies": {
     "express": "^4.12.0",
