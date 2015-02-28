@@ -1,5 +1,10 @@
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
+var argv = require('minimist')(process.argv.slice(2));
+argv['c'] = argv['c'] || false
+if (argv['c'] && parseInt(argv['c']) <= numCPUs) {
+    numCPUs = argv['c'] || numCPUs
+}
 var database = 'test'
 if (cluster.isMaster) {
     // Fork workers.
@@ -64,7 +69,7 @@ if (cluster.isMaster) {
         var req = global.req;
         var res = global.res;
         var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-        var ip = '122.161.114.15'
+//        var ip = '122.161.114.15'
         if (!async) {
             var geoip = require('geoip-lite');
             var geo = geoip.lookup(ip);
