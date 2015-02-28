@@ -45,7 +45,7 @@ if (cluster.isMaster) {
 
     }
 
-    var get = function (id) {
+    var retrive = function (id) {
         storageInit()
 
         var Ti = global.Tt
@@ -64,6 +64,9 @@ if (cluster.isMaster) {
             global.res.send({})
         })
     }
+    var trong = function (id) {
+        return retrive(id);
+    }
 
     var tring = function (id, async) {
         var req = global.req;
@@ -71,6 +74,7 @@ if (cluster.isMaster) {
         var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 //        var ip = '122.161.114.15'
         if (!async) {
+            //Declaring it twice for performance reasons
             var geoip = require('geoip-lite');
             var geo = geoip.lookup(ip);
             setTimeout(function () {
@@ -83,6 +87,7 @@ if (cluster.isMaster) {
         } else {
             setTimeout(function () {
                 console.log('Delayed Lookup')
+                //Declaring it twice for performance reasons
                 var geoip = require('geoip-lite');
                 var geo = geoip.lookup(ip);
                 save(id, {
@@ -106,7 +111,7 @@ if (cluster.isMaster) {
     app.get('/get/:id', function (req, res) {
         global.req = req;
         global.res = res;
-        get(req.params["id"])
+        trong(req.params["id"])
     })
 
     var server = app.listen(3000, function () {
