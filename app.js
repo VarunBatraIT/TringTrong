@@ -5,7 +5,11 @@ argv['c'] = argv['c'] || false
 if (argv['c'] && parseInt(argv['c']) <= numCPUs) {
     numCPUs = argv['c'] || numCPUs
 }
-var database = 'test'
+var fs = require('fs');
+var localConfig = JSON.parse(fs.readFileSync('config.json', 'utf8'));
+
+var database = localConfig.database;
+
 if (cluster.isMaster) {
     // Fork workers.
     for (var i = 0; i < numCPUs; i++) {
@@ -103,19 +107,36 @@ if (cluster.isMaster) {
         res.send('Alive!')
     })
 
-    app.get('/set/:id', function (req, res) {
+    var post = function (req, res) {
         global.timeNow = new Date().toISOString();
         global.req = req;
         global.res = res;
         var async = req.query['async'] == "false" ? false : true
-        res.send(tring(req.params["id"], async));
-    })
-
-    app.get('/get/:id', function (req, res) {
+        tring(req.params["id"], async)
+    }
+    var get = function (req, res) {
         global.req = req;
         global.res = res;
         trong(req.params["id"])
+    }
+    // JSONP Based
+    app.get('/set/:id', function (req, res) {
+        res.send(post(req, res));
     })
+
+    app.get('/get/:id', function (req, res) {
+        get(req, res);
+    })
+
+    // REST Based
+    app.get('/geo/:id', function (req, res) {
+        get(req, res);
+    })
+
+    app.post('/geo/:id', function (req, res) {
+        res.send(post(req, res));
+    })
+
 
     var server = app.listen(3000, function () {
         var host = server.address().address

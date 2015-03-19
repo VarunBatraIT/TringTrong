@@ -9,12 +9,26 @@ By default it is equal to number of CPUs otherwise you can pass argument with -c
 node app.js -c 2
 ```
 
+##Config
+
+Rename example.config.json to config.json and edit database
+
 ##Set Data
 
 For sync data (returns data immediately)
 
+
+JSNOP
+
 ```
 http://localhost:3000/set/user-007?async=false
+```
+
+REST
+
+
+```
+POST http://localhost:3000/geo/user-007?async=false
 ```
 
 
@@ -26,14 +40,27 @@ http://localhost:3000/set/user-007?async=false
 For async data, which returns an empty set while trying to figure out location behind the scene
 
 
+JSNOP
+
 
 ```
 http://localhost:3000/set/user-007?async=true
 ```
 
-
 ```
 http://localhost:3000/set/user-007
+```
+
+REST
+
+
+```
+POST http://localhost:3000/geo/user-007
+```
+
+
+```
+POST http://localhost:3000/geo/user-007?async=true
 ```
 
 
@@ -48,9 +75,15 @@ async parameter is either true or false, invalid is consider as true. If true is
 
 
 ##Get Data
+
+```
 http://localhost:3000/get/user-007
+```
 
 
+```
+GET http://localhost:3000/geo/user-007
+```
 
 
 ```
